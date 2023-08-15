@@ -149,25 +149,25 @@ function playGame() {
         case right:
           monster.vx = monster.speed;
           monster.vy = 0;
-          monster.sourceX = 128;
+          monster.sourceX = 128; // set img location on tilesheet
           break;
 
         case left:
           monster.vx = -monster.speed;
           monster.vy = 0;
-          monster.sourceX = 64;
+          monster.sourceX = 64; // set img location on tilesheet
           break;
 
         case up:
           monster.vx = 0;
           monster.vy = -monster.speed;
-          monster.sourceX = 0;
+          monster.sourceX = 0; // set img location on tilesheet
           break;
 
         case down:
           monster.vx = 0;
           monster.vy = monster.speed;
-          monster.sourceX = 192;
+          monster.sourceX = 192; // set img location on tilesheet
       }
     }
   }

@@ -111,6 +111,7 @@ let moveUp = false;
 let moveDown = false;
 let moveRight = false;
 let moveLeft = false;
+let moving = false;
 
 //Add keyboard listeners
 window.addEventListener(
@@ -120,18 +121,22 @@ window.addEventListener(
     switch (event.key) {
       case UP:
         moveUp = true;
+        moving = true;
         break;
 
       case DOWN:
         moveDown = true;
+        moving = true;
         break;
 
       case LEFT:
         moveLeft = true;
+        moving = true;
         break;
 
       case RIGHT:
         moveRight = true;
+        moving = true;
         break;
     }
   },
@@ -145,18 +150,22 @@ window.addEventListener(
     switch (event.key) {
       case UP:
         moveUp = false;
+        moving = false;
         break;
 
       case DOWN:
         moveDown = false;
+        moving = false;
         break;
 
       case LEFT:
         moveLeft = false;
+        moving = false;
         break;
 
       case RIGHT:
         moveRight = false;
+        moving = false;
         break;
     }
   },
@@ -167,8 +176,28 @@ function loadHandler() {
   update();
 }
 
+// vars to control monster face
+let changeFaceTime = 60;
+let timer = 0;
+
 function update() {
   requestAnimationFrame(update, canvas);
+
+  // set monster's face
+  //  add 1 to the timer
+  timer++;
+  //  check timer
+  if (moving) {
+    if (timer >= changeFaceTime) {
+      if (monster.sourceX < 128) {
+        monster.sourceX += 64;
+        timer = 0;
+      } else {
+        monster.sourceX = 0;
+        timer = 0;
+      }
+    }
+  }
 
   //   up
   if (moveUp && !moveDown) {
@@ -219,7 +248,7 @@ function update() {
     camera.y = Math.floor(monster.y + monster.height - camera.height * 0.75);
   }
 
-  //The camera's world boundaries
+  //keep the camera's within the world boundaries
   if (camera.x < gameWorld.x) {
     camera.x = gameWorld.x;
   }
